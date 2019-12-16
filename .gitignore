@@ -1,0 +1,6 @@
+env/
+*.PYC
+__pycache__/
+.idea/
+temp_links/
+.DS_Store
