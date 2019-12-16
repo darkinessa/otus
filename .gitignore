@@ -4,3 +4,4 @@ __pycache__/
 .idea/
 temp_links/
 .DS_Store
+**/*.DS_Store*	
