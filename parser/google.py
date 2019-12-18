@@ -1,14 +1,14 @@
 import requests
 from bs4 import BeautifulSoup
-from tmp_test import get_test_page, local_link
+from tmp_test import get_test_page
 
 # https://www.google.com/
 # search?q=%BE%D0%B9+%D0%BA%D0%BE%D1%88%D0%BA%D0%B8&oq=%D0%BA%D1%83
 # &aqs=chrome.0.69i59l3j35i39j69i57j69i61l3.4708j1j7  &aqs=chrome..69i57j0.1380j0j9
 # &sourceid=chrome&ie=UTF-8
 
-
-page = get_test_page(local_link)
+g_local_link = ''
+g_page = get_test_page(g_local_link)
 
 
 def get_google_links(html):
@@ -16,7 +16,6 @@ def get_google_links(html):
     links = soup.find('div', id="search").find_all('a')
     new_links = []
     results = []
-    c = 0
 
     for h in range(len(links)):
         if links[h].find('h3', class_='LC20lb') is not None:
@@ -25,14 +24,10 @@ def get_google_links(html):
     for r in new_links:
         link = r.get('href')
         head = r.find('h3').string
-        c += 1
-        rs = c, head, link
+        rs = head, link
         results.append(rs)
 
     return results
-
-
-print(get_google_links(page))
 
 # https://www.google.com/search?q=%D0%BF%D0%B0%D1%80%D1%81%D0%B5%D1%80&oq=%D0%BF%D0%B0%D1%80%D1%81%D0%B5%D1%80&aqs=chrome..69i57j0l5j69i61j69i60.3921j1j7&sourceid=chrome&ie=UTF-8
 #
