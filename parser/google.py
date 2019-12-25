@@ -1,15 +1,47 @@
-import requests
+import requests as r
 from bs4 import BeautifulSoup
+from user_agent import generate_user_agent
+
+from input_options import search_depth, prepare_query_text
 from tmp_test import get_test_page
 
-# https://www.google.com/
-# search?q=%BE%D0%B9+%D0%BA%D0%BE%D1%88%D0%BA%D0%B8&oq=%D0%BA%D1%83
-# &aqs=chrome.0.69i59l3j35i39j69i57j69i61l3.4708j1j7  &aqs=chrome..69i57j0.1380j0j9
-# &sourceid=chrome&ie=UTF-8
 
-g_local_link = ''
-g_page = get_test_page(g_local_link)
 
+# headers = {'User-Agent': generate_user_agent(device_type="desktop", os=('mac', 'linux'))}
+headers = {'accept': '*/*',
+           'accept-encoding': 'gzip, deflate, br',
+           'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+           'content-length': '0',
+           'content-type': 'text/plain;charset=UTF-8',
+           "user-agent": 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36'}
+
+query_text_1 = 'python first love'
+quantity = 13
+
+
+def create_google_url(query_text, quantity_links):
+    base_url = 'https://www.google.com/search?q='
+    urls = []
+    text = prepare_query_text(query_text)
+
+    if quantity_links >= 6:
+        quantity_links = quantity_links + 10
+
+    for start in [i * 10 for i in range((quantity_links // 10) + 1)]:
+        if start == 0:
+            url = str(base_url + text + '&newwindow=1' + '&sourceid=chrome&ie=UTF-8')
+        else:
+            url = str(base_url + text + '&newwindow=1' + '&start=' + str(start) + '&biw=1680&bih=819')
+        urls.append(url)
+    return urls
+
+
+print(create_google_url(query_text_1, quantity))
+
+# session = r.session()
+# request = session.get(base_url, headers=headers)
+
+url1 = "https://www.google.com/search?newwindow=1&biw=1680&bih=821&q=user+agent+parser+python"
 
 def get_google_links(html):
     soup = BeautifulSoup(html, 'lxml')
@@ -29,13 +61,12 @@ def get_google_links(html):
 
     return results
 
-# https://www.google.com/search?q=%D0%BF%D0%B0%D1%80%D1%81%D0%B5%D1%80&oq=%D0%BF%D0%B0%D1%80%D1%81%D0%B5%D1%80&aqs=chrome..69i57j0l5j69i61j69i60.3921j1j7&sourceid=chrome&ie=UTF-8
+
+def get_google_results(links_list):
+    results = []
+    for line in links_list:
+        page = get_test_page(line)
+        results_g = get_google_links(page)
+        results += results_g
+    return results
 #
-# <div class="rc">
-# <div class="r">
-# <a href="https://www.wordreference.com/enru/Christmas" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;url=https://www.wordreference.com/enru/Christmas&amp;ved=2ahUKEwjkh4yhiKbmAhWM1aYKHT6qAasQFjAPegQIAxAB" target="_blank" rel="noopener">
-# <h3 class="LC20lb"><span class="S3Uucc">Christmas - Англо-русский словарь на WordReference.com</span></h3><br>
-# <div class="TbwUpd"><cite class="iUh30 bc">https://www.wordreference.com › enru › Christmas</cite></div></a><span>
-# <div class="action-menu ab_ctl"><a class="GHDvEf ab_button" href="https://www.google.ru/search?ie=UTF-8&amp;hl=ru&amp;q=christmas#" id="am-b15" aria-label="Параметры" aria-expanded="false" aria-haspopup="true" role="button" jsaction="m.tdd;keydown:m.hbke;keypress:m.mskpe" data-ved="2ahUKEwjkh4yhiKbmAhWM1aYKHT6qAasQ7B0wD3oECAMQBA">
-# <span class="mn-dwn-arw"></span></a><div class="action-menu-panel ab_dropdown" role="menu" tabindex="-1" jsaction="keydown:m.hdke;mouseover:m.hdhne;mouseout:m.hdhue" data-ved="2ahUKEwjkh4yhiKbmAhWM1aYKHT6qAasQqR8wD3oECAMQBQ"><ol><li class="action-menu-item ab_dropdownitem" role="menuitem"><a class="fl" href="https://webcache.googleusercontent.com/search?q=cache:ELjxyhWWIZsJ:https://www.wordreference.com/enru/Christmas+&amp;cd=16&amp;hl=ru&amp;ct=clnk&amp;gl=ru" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;url=https://webcache.googleusercontent.com/search%3Fq%3Dcache:ELjxyhWWIZsJ:https://www.wordreference.com/enru/Christmas%2B%26cd%3D16%26hl%3Dru%26ct%3Dclnk%26gl%3Dru&amp;ved=2ahUKEwjkh4yhiKbmAhWM1aYKHT6qAasQIDAPegQIAxAG" target="_blank" rel="noopener">Сохраненная&nbsp;копия</a></li></ol></div></div></span></div>
-# <div class="s"><div><span class="st"><em>Christmas</em> - Бесплатный онлайн словарь. 210 000 слов, выражений и переводов, плюс форумы для обсуждения.</span></div></div></div>
