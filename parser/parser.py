@@ -1,7 +1,6 @@
-from google import get_google_links, g_page, g_lll, get_google_results
+from google import g_lll, get_google_results
 from input_options import input_options
-from tmp_test import get_test_page
-from yandex import get_yandex_links, y_page, y_lll, get_yandex_results
+from yandex import y_lll, get_yandex_results
 
 
 
