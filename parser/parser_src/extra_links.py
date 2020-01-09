@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from network_request import get_pages
+from parser_src.network_request import get_pages
 
 
 def get_extra_links(html, query_text):

@@ -1,20 +1,20 @@
-from google import g_lll, get_google_results
-from input_options import input_options
-from yandex import y_lll, get_yandex_results
-
-
-
-
-
-def print_results(result, quantity):
-    counter = 1
-    for line in result[0:quantity]:
-        print(counter, line[0])
-        print(line[1])
-        counter += 1
-        print()
-
-
+# from parser_src.google import g_lll, get_google_results
+# from parser_src.input_options import input_options
+# from parser_src.yandex import y_lll, get_yandex_results
+#
+#
+#
+#
+#
+# def print_results(result, quantity):
+#     counter = 1
+#     for line in result[0:quantity]:
+#         print(counter, line[0])
+#         print(line[1])
+#         counter += 1
+#         print()
+#
+#
 def main():
     issues = list(input_options())
     search_engine = issues[0]

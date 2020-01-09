@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
-from input_options import prepare_query_text
-from network_request import get_pages
+from parser_src.input_options import prepare_query_text
+from parser_src.network_request import get_pages
 
 
 def create_google_url(query_text, quantity_links):
