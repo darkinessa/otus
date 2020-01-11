@@ -10,7 +10,7 @@ def select_engines():
         while selected_engine_key not in dict.keys(search_engines_dict):
             selected_engine_key = key_from_user_input()
     except EOFError as err:
-        print(f'{err} error occurred')
+        print(f'{err} error occurred with select_engines')
         return
     return search_engines_dict[selected_engine_key]
 
@@ -30,7 +30,7 @@ def select_quantity_links():
         while selected_quantity_links not in [i for i in range(1, 51)]:
             (selected_quantity_links, is_int) = validate_user_input_int(text_quantity_links)
     except EOFError as err:
-        print(f'{err} error occurred')
+        print(f'{err} error occurred with select_quantity_links ')
         return
 
     return selected_quantity_links
@@ -55,7 +55,7 @@ def select_search_depth():
         while select_search_depth not in [0, 1]:
             (select_search_depth, is_int) = validate_user_input_int(text_search_depth)
     except EOFError as err:
-        print(f'{err} error occurred')
+        print(f'{err} error occurred with select_search_depth')
         return
 
     return select_search_depth
@@ -71,7 +71,7 @@ def select_search_query():
             print(f'Количество символов вашего запроса {len(select_search_query)}')
 
     except EOFError as err:
-        print(f'{err} error occurred')
+        print(f'{err} error occurred in select_search_query')
         return
 
     return select_search_query

@@ -32,7 +32,7 @@ def create_yandex_url(query_text, quantity_links):
     try:
         quantity_links = int(quantity_links)
     except Exception as err:
-        print(f'Something wrong, occurred {err}')
+        print(f'Something wrong with  create_yandex_url, occurred {err}')
         return
 
     urls = []
@@ -81,7 +81,7 @@ def get_yandex_soup_results(html):
         return results
 
     except Exception as e:
-        print(f'Something wrong, occurred {e}')
+        print(f'Something wrong with get_yandex_soup_results, occurred {e}')
         return
 
 
@@ -98,4 +98,4 @@ def get_yandex_results(query_text, quantity_links):
 
         return results
     except Exception as e:
-        print(f'Something wrong, occurred {e}')
+        print(f'Something wrong with get_yandex_results, occurred {e}')

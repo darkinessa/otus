@@ -12,13 +12,13 @@ def get_html(link):
         if page_response.status_code == 200:
             response = html, page_response.status_code
         elif page_response.status_code != 200:
-            response = f'что-то пошло не так, код ошибки {page_response.status_code}'
+            response = f'что-то пошло не так c get_html, код ошибки {page_response.status_code}', 'none'
 
         else:
             raise Exception
 
     except Exception as e:
-        response = f'что-то пошло не так: \n  {e}'
+        response = f'что-то пошло не так c get_html: \n  {e}', 'none'
 
     return response
 
@@ -27,8 +27,11 @@ def get_pages(urls):
     pages = []
     for url in urls:
         page = get_html(url)
-        if page[1] == 200:
-            pages.append(page[0])
+        pages.append(page[0])
+        # if page[1] == 200:
+
+        # else:
+        #     pages.append()
     return pages
 
 

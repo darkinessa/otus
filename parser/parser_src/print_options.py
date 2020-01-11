@@ -23,8 +23,9 @@ def print_extra_results(results, quantity):
         print(main_result[1])
         print(f'Дополнительно: {len(extra_results)}')
         if len(extra_results) > 0:
+            print(len(extra_results),extra_results)
             for i in extra_results:
-                print(i[0], i[1])
+                print(i)
         c += 1
         print('done')
     return

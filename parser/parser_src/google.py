@@ -52,7 +52,7 @@ def get_google_soup_results(html):
         return results
 
     except Exception as e:
-        print(f'Something wrong, occurred {e}')
+        print(f'Something wrong with get_google_soup_results, occurred {e}')
         return
 
 
@@ -66,5 +66,5 @@ def get_google_results(query_text, quantity_links):
             results += results_google
         return results
     except Exception as e:
-        print(f'Something wrong, occurred {e}')
+        print(f'Something wrong with get_google_results, occurred {e}')
         return
