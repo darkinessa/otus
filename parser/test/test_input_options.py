@@ -80,9 +80,16 @@ def test_choose_search_query(monkeypatch):
 
 
 def test_returned_input_options_correct(monkeypatch):
+    # user_input = input_options()
+
     assume_stdin(monkeypatch, 'y\n12\n1\nFashion Royalty Agness')
     opts = input_options()
-    assert ('yandex', 12, 1, 'fashion royalty agness') == opts, "Should be ('yandex', 12, 1, 'fashion royalty agness')"
+    print(opts)
+    assert ('yandex', 12, 1, 'fashion royalty agness') == (opts['search_engine'],
+                                                           opts['quantity_links'],
+                                                           opts['search_depth'],
+                                                           opts['query_text']), \
+        "Opts hould be {'search_engine': 'yandex', 'quantity_links': 12, 'search_depth': 1, 'query_text': 'fashion royalty agness'}"
 
 
 def test_prepare_query_text():
@@ -94,3 +101,4 @@ def test_prepare_query_text():
 
 def assume_stdin(monkeypatch, stdin_input):
     monkeypatch.setattr('sys.stdin', io.StringIO(stdin_input))
+

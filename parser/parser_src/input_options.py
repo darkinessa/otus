@@ -94,7 +94,10 @@ def input_options():
     query_text = select_search_query()
     print(query_text)
 
-    return search_engine, int(quantity_links), search_depth, query_text
+    return {'search_engine': search_engine,
+            'quantity_links': quantity_links,
+            'search_depth': search_depth,
+            'query_text': query_text}
 
 
 def prepare_query_text(query_text):
