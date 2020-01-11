@@ -68,5 +68,3 @@ def get_combined_results(results, extra_results):
     except Exception as e:
         print(f'Something wrong, occurred {e}')
         return
-
-#done

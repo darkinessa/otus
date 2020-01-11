@@ -99,5 +99,3 @@ def get_yandex_results(query_text, quantity_links):
         return results
     except Exception as e:
         print(f'Something wrong, occurred {e}')
-
-#done

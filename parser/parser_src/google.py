@@ -57,7 +57,6 @@ def get_google_soup_results(html):
 
 
 def get_google_results(query_text, quantity_links):
-
     try:
         results = []
         urls = create_google_url(query_text, quantity_links)
@@ -69,4 +68,3 @@ def get_google_results(query_text, quantity_links):
     except Exception as e:
         print(f'Something wrong, occurred {e}')
         return
-#done

@@ -18,17 +18,17 @@ def get_results():
     # google_results = get_google_results(query_text, quantity_links)
     # links = get_yandex_results(query_text, quantity_links)
 
-    if search_engine == 'g':
+    if user_input['search_engine']== 'google':
         results.append('google_results')
 
-    if search_engine == 'y':
+    if user_input['search_engine'] == 'yandex':
         links = 'get_yandex_results(query_text, quantity_links)'
         results.append(links)
 
-    if search_engine == 'b':
+    if search_engine == 'both':
         results = 'google_results' + links
 
     return results
 
 
-print(get_results())
+# print(get_results())
