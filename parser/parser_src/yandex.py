@@ -25,6 +25,7 @@ def get_utf_string(query_text):
 
         else:
             new_query_text.append(word)
+
     return ' '.join(new_query_text)
 
 
@@ -89,7 +90,6 @@ def get_yandex_results(query_text, quantity_links):
     try:
         results = []
         urls = create_yandex_url(query_text, int(quantity_links))
-
         pages = get_pages(urls)
 
         for page in pages:
@@ -99,3 +99,4 @@ def get_yandex_results(query_text, quantity_links):
         return results
     except Exception as e:
         print(f'Something wrong with get_yandex_results, occurred {e}')
+        return

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from bs4 import BeautifulSoup
+# from output with mock google results (expected_google_results)
 
 html_mock = [
 

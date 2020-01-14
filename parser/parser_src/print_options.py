@@ -10,22 +10,26 @@ def print_results(result, quantity):
         else:
             continue
         с += 1
-        print('done')
-    return
+
+    return 'done'
 
 
 def print_extra_results(results, quantity):
-    c = 1
-    for result in results[0:quantity]:
-        main_result = result[0]
-        extra_results = result[1]
-        print(c, main_result[0])
-        print(main_result[1])
-        print(f'Дополнительно: {len(extra_results)}')
-        if len(extra_results) > 0:
-            print(len(extra_results),extra_results)
-            for i in extra_results:
-                print(i)
-        c += 1
-        print('done')
-    return
+    if results:
+        c = 1
+        for result in results[0:quantity]:
+            print()
+            main_result = result[0]
+            extra_results = result[1]
+            print(f'{c}.  {main_result[0]}')
+            print(main_result[1])
+            print()
+            print(f'Дополнительно: {len(extra_results)}')
+
+            if len(extra_results) > 0:
+                for i in extra_results:
+                    print(i[0], i[1])
+            c += 1
+        return 'done'
+    else:
+        return "Кажется нас забанили, попробуте сменить IP иои выберать другой пооисковик "

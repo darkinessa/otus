@@ -24,7 +24,6 @@ def create_google_url(query_text, quantity_links):
                 url = str(base_url + text + '&newwindow=1' + '&start=' + str(start) + '&biw=1680&bih=819')
 
             urls.append(url)
-
     else:
         url = str(base_url + text + '&newwindow=1' + '&sourceid=chrome&ie=UTF-8')
         urls.append(url)

@@ -54,6 +54,7 @@ def select_search_depth():
 
         while select_search_depth not in [0, 1]:
             (select_search_depth, is_int) = validate_user_input_int(text_search_depth)
+
     except EOFError as err:
         print(f'{err} error occurred with select_search_depth')
         return

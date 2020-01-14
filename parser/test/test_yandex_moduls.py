@@ -83,4 +83,3 @@ def test_got_yandex_results_with_wrong_value():
 
     assert output is None
 
-# ирисы

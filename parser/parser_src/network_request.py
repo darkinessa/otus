@@ -10,15 +10,15 @@ def get_html(link):
         page_response.encoding = 'utf-8'
         html = page_response.text
         if page_response.status_code == 200:
-            response = html, page_response.status_code
+            response = html
         elif page_response.status_code != 200:
-            response = f'что-то пошло не так c get_html, код ошибки {page_response.status_code}', 'none'
+            response = f'что-то пошло не так c get_html, код ошибки {page_response.status_code}'
 
         else:
             raise Exception
 
     except Exception as e:
-        response = f'что-то пошло не так c get_html: \n  {e}', 'none'
+        response = f'что-то пошло не так c get_html: \n  {e}'
 
     return response
 
@@ -27,18 +27,5 @@ def get_pages(urls):
     pages = []
     for url in urls:
         page = get_html(url)
-        pages.append(page[0])
-        # if page[1] == 200:
-
-        # else:
-        #     pages.append()
+        pages.append(page)
     return pages
-
-
-def get_error(urls):
-    errors = []
-    for url in urls:
-        page = get_html(url)
-        if page[1] != 200:
-            errors.append(page)
-    return errors
