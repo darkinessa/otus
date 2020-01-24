@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 
 from parser_src.network_request import get_pages
+from parser_src.urls_settings import validate_url_address
 
 
 def get_extra_links_soup(html, query_text):
@@ -13,12 +14,10 @@ def get_extra_links_soup(html, query_text):
             link = line.get('href')
             if type(text) is str:
                 new_text = text.lower()
-                if link:
-                    if set(new_text).issuperset(set(query_text.lower())):
-                        if link.startswith('http'):
-                            text = text.replace('\n', '')
-                            results = text[0:300], link
-                            links_list.append(results)
+                if validate_url_address(link) and set(new_text).issuperset(set(query_text.lower())):
+                    text = text.replace('\n', '')
+                    results = text[0:300], link
+                    links_list.append(results)
         return links_list
 
     except Exception as e:

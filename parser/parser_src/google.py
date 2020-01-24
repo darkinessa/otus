@@ -1,34 +1,6 @@
 from bs4 import BeautifulSoup
-from parser_src.input_options import prepare_query_text
 from parser_src.network_request import get_pages
-
-
-def create_google_url(query_text, quantity_links):
-    try:
-        quantity_links = int(quantity_links)
-    except ValueError as e:
-        print('{e}')
-        return
-
-    base_url = 'https://www.google.com/search?q='
-    urls = []
-    text = prepare_query_text(query_text)
-
-    if quantity_links >= 6:
-        quantity_links = int(quantity_links) + 10
-
-        for start in [i * 10 for i in range(quantity_links // 10)]:
-            if start == 0:
-                url = str(base_url + text + '&newwindow=1' + '&sourceid=chrome&ie=UTF-8')
-            if start != 0:
-                url = str(base_url + text + '&newwindow=1' + '&start=' + str(start) + '&biw=1680&bih=819')
-
-            urls.append(url)
-    else:
-        url = str(base_url + text + '&newwindow=1' + '&sourceid=chrome&ie=UTF-8')
-        urls.append(url)
-
-    return urls
+from parser_src.urls_settings import validate_url_address, create_google_url
 
 
 def get_google_soup_results(html):
@@ -45,7 +17,7 @@ def get_google_soup_results(html):
         for line in new_links:
             link = line.get('href')
             head = line.find('h3').string
-            result = head, link
+            result = head, validate_url_address(link)
             results.append(result)
 
         return results

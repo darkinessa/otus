@@ -99,13 +99,3 @@ def input_options():
             'quantity_links': quantity_links,
             'search_depth': search_depth,
             'query_text': query_text}
-
-
-def prepare_query_text(query_text):
-    # подготовить текст для создания url
-    if len(query_text.split()) > 1:
-        text = '+'.join(query_text.split())
-    else:
-        text = query_text
-
-    return text

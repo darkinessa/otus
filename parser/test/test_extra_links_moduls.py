@@ -52,6 +52,7 @@ def test_got_combined_results():
 #     # text = 'ирисы'
 #     quantity = 7
 #     output = get_pages_extra_results(results, quantity)
+#     print(output)
 #     assert output != [], 'Should be list with results'
 #     assert len(output) == quantity
 

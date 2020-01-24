@@ -16,17 +16,15 @@ def get_results():
     results = []
 
     if search_engine == 'google':
-        google_results = get_google_results(query_text, quantity_links)
-        results = google_results
+        results = get_google_results(query_text, quantity_links)
 
-    if search_engine == 'yandex':
-        yandex_results = get_yandex_results(query_text, quantity_links)
-        results = yandex_results
+    elif search_engine == 'yandex':
+        results = get_yandex_results(query_text, quantity_links)
 
-    if search_engine == 'both':
+    elif search_engine == 'both':
         if quantity_links % 2 == 0:
             new_quantity = quantity_links / 2
-        if quantity_links % 2 != 0:
+        else:
             new_quantity = (quantity_links + 1) / 2
 
         results = get_google_results(query_text, new_quantity) + get_yandex_results(query_text, new_quantity)
