@@ -38,8 +38,8 @@ def test_got_combined_results():
     expected_2 = expected_combined_results_with_yandex_results
 
     try:
-        output_1 = get_combined_results(results_1, extra_results_1)
-        output_2 = get_combined_results(results_2, extra_results_2)
+        output_1 = get_combined_results(results_1, extra_results_1, 8)
+        output_2 = get_combined_results(results_2, extra_results_2, 10)
         print(print_extra_results(output_2, 8))
         print(print_extra_results(output_1, 10))
     except ValueError:

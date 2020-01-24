@@ -18,6 +18,7 @@ expected_yandex_results = [('1 000+ Бесплатные Ирисы & Цвето
              'http://www.plantopedia.ru/encyclopaedia/garden-plants/details/i/iris/'),
             ('Ирисы - история, значение, советы',
              'https://cyber-florist.ru/news/irisy-istoriia-znachieniie-soviety/')]
+expected_yandex_result = [[('1 000+ Бесплатные Ирисы & Цветок изображения - Pixabay', 'https://pixabay.com/ru/images/search/%D0%B8%D1%80%D0%B8%D1%81%D1%8B/'), ('«Ирис» — сеть цветочных салонов', 'https://iris-flowers.ru/'), ('Ирисы | Natural Museum', 'https://natural-museum.ru/flora/%D0%B8%D1%80%D0%B8%D1%81%D1%8B'), ('Ирисы: 130 фото цветка и идей по украшению сада...', 'http://landshaftadvice.ru/irisy/'), ('Карликовые ирисы: сорта, описание, фото, посадка и уход', 'https://www.syl.ru/article/333595/karlikovyie-irisyi-sorta-opisanie-foto-posadka-i-uhod'), ('Садовая классификация ирисов', 'https://www.greeninfo.ru/grassy/iris_hybrida.html/Article/_/aID/4985'), ('Цветы бородатые ирисы: лучшие сорта, фото и названия...', 'https://kvetok.ru/tsvety-dlya-sada/iris-borodaty-j'), ('Ирис - мифы, легенды, история происхождения', 'https://mifflow.ru/iris.html'), ('Ирис', 'http://www.plantopedia.ru/encyclopaedia/garden-plants/details/i/iris/'), ('Ирисы - история, значение, советы', 'https://cyber-florist.ru/news/irisy-istoriia-znachieniie-soviety/')]]
 
 expected_google_results = [('Введение в PyTest - Alexander Demura - Medium',
              'https://medium.com/@dmrlx/%D0%B2%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B2-pytest-cc6175c7d0dc'),

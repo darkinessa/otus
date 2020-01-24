@@ -10,21 +10,23 @@ from test.mock.mock_variable_value import expected_google_results, expected_yand
 
 
 def test_get_results(monkeypatch):
-    assume_stdin(monkeypatch, 'y\n8\n1\nPython')
+    assume_stdin(monkeypatch, 'y\n8\n0\nИрисы')
     user_input = input_options()
     print(user_input)
     results = []
-    expexted = expected_combined_results_with_yandex_results
+    expexted_combine = expected_combined_results_with_yandex_results
+    expexted = expected_yandex_results
 
     print(len(expexted))
 
+
     if user_input['search_engine'] == 'google':
-        g_results = expected_google_results
-        results.append(g_results)
+        results = expected_google_results
+
 
     if user_input['search_engine'] == 'yandex':
-        links = expected_yandex_results
-        results.append(links)
+        results = expected_yandex_results
+
 
     if user_input['search_engine'] == 'both':
         g = expected_google_results
@@ -34,9 +36,10 @@ def test_get_results(monkeypatch):
 
     if user_input['search_depth'] == 1:
         extra_results = mock_expected_extra_links_with_yandex_html
-        current_results = expected_yandex_results
-        results = get_combined_results(current_results, extra_results)
-    print(results)
+        results = extra_results
+
+    print(expexted)
+
 
     assert results == expexted
 

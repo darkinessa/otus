@@ -1,7 +1,8 @@
 import io
 
 from parser_src.input_options import select_search_depth, select_search_query, select_engines, select_quantity_links, \
-    input_options, prepare_query_text
+    input_options
+from parser_src.urls_settings import prepare_query_text
 
 
 def test_chooses_search_engine_based_on_stdin(monkeypatch):
