@@ -12,12 +12,11 @@ def get_extra_links_soup(html, query_text):
         for line in links:
             text = line.text
             link = line.get('href')
-            if type(text) is str:
-                new_text = text.lower()
-                if validate_url_address(link) and set(new_text).issuperset(set(query_text.lower())):
-                    text = text.replace('\n', '')
-                    results = text[0:300], link
-                    links_list.append(results)
+            if validate_url_address(link) and (type(text) is str) and set(text.lower()).issuperset(
+                    set(query_text.lower())):
+                text = text.replace('\n', '')
+                results = text[0:300], link
+                links_list.append(results)
         return links_list
 
     except Exception as e:
