@@ -28,8 +28,8 @@ a:hover {
    }
 
 .icon{
-color: #666666;
-padding-right: 0.3em;
+    color: #666666;
+    padding-right: 0.3em;
 }
 
 .header {
@@ -55,7 +55,7 @@ padding-right: 0.3em;
     left-padding: 2rem}
 
 p {
-margin-left: 3em;
+    margin-left: 3em;
 }
 
 .list {
@@ -90,7 +90,6 @@ margin-left: 3em;
     text-decoration: underline;
    }
 
-
 .tags {
 color: #666666;
 }
@@ -113,6 +112,7 @@ color: #666666;
       padding: 1em;
       border-radius: 0.5rem;
 }
+
 .card-header {
     color: #cc0000;
     background-color: transparent;
@@ -128,7 +128,7 @@ color: #666666;
     border: 1px solid #cccccc;
 }
 .page-link:hover {
-color: #800000;
+    color: #800000;
 }
 
 .page-item.active .page-link {
@@ -137,6 +137,7 @@ color: #800000;
     background-color: #cc3333;
     border-color: #cc3333;
 }
+
 .next-post{
     font-size: 0.8em;
 }
