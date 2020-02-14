@@ -2,7 +2,7 @@ from datetime import datetime
 from sqlalchemy import Column, Integer, ForeignKey, String, Text, Boolean, DateTime, Table
 from sqlalchemy.orm import relationship
 
-from settings import Base
+from Models.settings import Base
 
 bind_posts_tags = Table('bind_posts_tags', Base.metadata,
                         Column('post_id', Integer, ForeignKey('posts.id'), primary_key=True),
