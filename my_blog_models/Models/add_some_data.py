@@ -5,14 +5,15 @@ from Models.sql_alchemy_models import User, Tag, Post
 def add_user(text):
     session = Session()
     if session.query(User).filter_by(username=text).one_or_none():
-        massage = f'user: {text} already exists in db'
-        return massage
+        message = f'user: {text} already exists in db'
+
     else:
         user = User(username=text)
         session.add(user)
         session.commit()
-        massage = f'User: {text} was successfully added'
-        return massage
+        message = f'User: {text} was successfully added'
+
+    return message
 
 
 def add_post(post):
@@ -23,14 +24,14 @@ def add_post(post):
             user_id = session.query(User.id).filter(User.username == post['User']).scalar()
 
             if not user_id:
-                massage = f"User {post['User']} not found"
-                return massage
+                message = f"User {post['User']} not found"
+                return message
             for key, value in post.items():
                 if key == 'tags':
                     continue
                 elif not value:
-                    massage = f'Expected date for {key}'
-                    return massage
+                    message = f'Expected date for {key}'
+                    return message
 
             post_tags = []
             for tag in post['tags']:
@@ -50,12 +51,12 @@ def add_post(post):
             return 'Post was successfully added'
 
         except Exception as e:
-            massage = f'Occur {e}'
-            return massage
+            message = f'Occur {e}'
+            return message
 
     else:
-        massage = 'Received data not match expected '
-        return massage
+        message = 'Received data not match expected '
+        return message
 
 
 def multiple_add(func, data):
