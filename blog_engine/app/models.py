@@ -1,10 +1,13 @@
 from datetime import datetime
 
+from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String, Boolean, Text, ForeignKey, DateTime, Table
 from sqlalchemy.orm import relationship
 
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.database import Base, engine
+
+from app import login
+from app.database import Base, engine, Session
 
 bind_posts_tags = Table('bind_posts_tags', Base.metadata,
                         Column('post_id', Integer, ForeignKey('posts.id'), primary_key=True),
@@ -12,7 +15,7 @@ bind_posts_tags = Table('bind_posts_tags', Base.metadata,
                         )
 
 
-class User(Base):
+class User(UserMixin, Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     username = Column(String(24), unique=True, nullable=False)
@@ -33,6 +36,12 @@ class User(Base):
 
     def __repr__(self):
         return f'<User {self.username}>'
+
+
+@login.user_loader
+def load_user(id):
+    session = Session()
+    return session.query(User).get(id)
 
 
 class Post(Base):
@@ -96,6 +105,5 @@ class Static(Base):
     meta_keywords = Column(String(160))
     page = Column(Text)
     is_active = Column(Boolean, nullable=False, default=False)
-
 
 # Base.metadata.create_all(bind=engine)
