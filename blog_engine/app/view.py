@@ -1,10 +1,10 @@
 from flask import render_template, flash, url_for, request
 from flask_login import current_user, login_user, logout_user
 from werkzeug.utils import redirect
-from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import app
 from app.database import Session
+from app.decorators import admin_required
 from app.models import User
 
 
@@ -20,6 +20,7 @@ def static_template():
 
 
 @app.route('/contacts')
+@admin_required
 def contacts():
     return render_template('public/contacts.html')
 
