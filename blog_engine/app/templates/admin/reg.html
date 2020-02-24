@@ -1,5 +1,9 @@
 {% extends '_base.html' %}
 
+{% macro has_error(field_name) %}
+{%- if field_with_error == field_name %} has-error {% endif -%}
+{%- endmacro %}
+
 {% block content %}
 <div class="greeting">
     <div class="container">
@@ -11,6 +15,10 @@
 
                             <h1 class='title'>Авторизация</h1>
                             <hr>
+                             {% include '_flash_error.html' %}
+
+
+
                             <div class="form">
                                 {% include 'forms/_registration.html' %}
                             </div>

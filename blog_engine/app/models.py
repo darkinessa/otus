@@ -39,8 +39,8 @@ class Post(Base):
     __tablename__ = 'posts'
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    rubric_id = Column(Integer, ForeignKey('rubric.id', nullable=False))
+    user_id = Column(Integer, ForeignKey('users.id'))
+    rubric_id = Column(Integer, ForeignKey('rubrics.id'), nullable=False)
     title = Column(String(128), nullable=False)
     meta_description = Column(String(160))
     meta_keywords = Column(String(160))
@@ -74,6 +74,7 @@ class Rubric(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False, unique=True, index=True)
+    posts = relationship('Post', back_populates='rubric')
     is_active = Column(Boolean, nullable=False, default=True)
 
 
@@ -97,4 +98,4 @@ class Static(Base):
     is_active = Column(Boolean, nullable=False, default=False)
 
 
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
