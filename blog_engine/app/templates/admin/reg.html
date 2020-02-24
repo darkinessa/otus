@@ -1,0 +1,27 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<div class="greeting">
+    <div class="container">
+        <div class="page-body">
+            <div class="blog">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9">
+
+                            <h1 class='title'>Авторизация</h1>
+                            <hr>
+                            <div class="form">
+                                {% include 'forms/_registration.html' %}
+                            </div>
+
+                        </div>
+                        {% include '_right_block_static.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

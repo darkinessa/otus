@@ -1,0 +1,80 @@
+ {% extends '_base.html' %}
+<!--промо страницы-->
+ {% block content %}
+<div class="greeting">
+    <div class="container fluid ">
+        <div class="row">
+            <div class="jumbotron">
+                <div class="container fluid">
+                    <div class="row">
+                        <div class="col text-left">
+                            <img src="static/img/syb.jpg"></div>
+                        <div class="col-8"><h1 class="display-4">Всем привет!</h1>
+                            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for
+                                calling
+                                extra
+                                attention to
+                                featured content or information.</p>
+                            <hr class="my-4">
+                            <p>It uses utility classes for typography and spacing to space content out within the
+                                larger
+                                container.</p>
+                            <a class="btn btn-danger btn-sm" href="#" role="button" style="color:#ffffff">Читать
+                                полностью</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--промо постов блога-->
+
+<div class="container">
+    <div class="row">
+        <div class="card-deck">
+            <div class="card">
+                <img class="card-img-top" src="static/img/seva.jpg" alt="Sybarite">
+                <div class="card-body">
+                    <h5 class="poppy-color">Happy Valentine!</h5>
+                    <p class="card-text"><a href="post">This is a wider card with supporting text below as a
+                        natural
+                        lead-in to
+                        additional content. This content is a little bit longer.</a></p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Рубрика: <a href="#"> Sybarite dolls</a></small>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="static/img/doc.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="poppy-color">Looking for angels</h5>
+                    <p class="card-text"><a href="post">This card has supporting text below as a natural lead-in to
+                        additional
+                        content.</a></p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Рубрика: <a href="#"> Dolls life</a></small>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top" src="static/img/momo.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="poppy-color" style="color:#cc0000">Rock me</h5>
+                    <p class="card-text"><a href="post">This is a wider card with supporting text below as a
+                        natural
+                        lead-in to
+                        additional content. This card has even longer content than the first to show that equal
+                        height
+                        action</a>.</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Рубрика: <a href="#"> Momoko dolls</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<div class="greeting">
+    <div class="container">
+        <div class="page-body">
+            <div class="static-page">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9">
+
+                            <h1 class='title'>Contacts</h1>
+                            <hr>
+                            {# контент #}
+                            <div class="page-content">
+                                <p class="lead">
+                                    Вы можете связаться со мной одним из следующих способов:
+                                <ul class="list">
+                                    <li>
+                                        VK
+                                    </li>
+                                    <li>
+                                        IG
+                                    </li>
+                                    <li>
+                                        Flickr
+                                    </li>
+                                </ul>
+                                </p>
+
+                                <div class="card">
+                                    <a data-toggle="collapse" href="#collapseExample"
+                                       aria-controls="collapseExample" class="text-center pb-2">Отправить сообщение
+                                        через сайт</a>
+                                    <div class="form">
+                                        <div class="collapse" id="collapseExample">
+                                            {% include 'forms/_feedback.html' %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% include '_right_block_static.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
