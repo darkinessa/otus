@@ -84,7 +84,9 @@ class Rubric(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(64), nullable=False, unique=True, index=True)
     posts = relationship('Post', back_populates='rubric')
-    is_active = Column(Boolean, nullable=False, default=True)
+    active = Column(Boolean, nullable=False, default=True)
+    posts_quantity = Column(Integer, default=0)
+    position = Column(Integer, default=0)
 
     def __repr__(self):
         return f'{self.name}'
@@ -94,25 +96,28 @@ class Jumbotron(Base):
     __tablename__ = 'jumbotron'
 
     id = Column(Integer, primary_key=True)
+    title = Column(String(128), nullable=False, default='Всем привет!')
     emphasis = Column(String, nullable=False)
     text = Column(Text, nullable=False)
     img_link = Column(String(128), nullable=False)
+    active = Column(Boolean, default=False, nullable=False)
 
     def __repr__(self):
         return f'{self.id}'
 
 
-class Static(Base):
-    __tablename__ = 'static'
+# class Static(Base):
+#     """позже добавлю функционал"""
+#     __tablename__ = 'static'
+#
+#     id = Column(Integer, primary_key=True)
+#     title = Column(String(128), nullable=False)
+#     meta_description = Column(String(160))
+#     meta_keywords = Column(String(160))
+#     page = Column(Text)
+#     is_active = Column(Boolean, nullable=False, default=False)
+#
+#     def __repr__(self):
+#         return f'{self.id}'
 
-    id = Column(Integer, primary_key=True)
-    title = Column(String(128), nullable=False)
-    meta_description = Column(String(160))
-    meta_keywords = Column(String(160))
-    page = Column(Text)
-    is_active = Column(Boolean, nullable=False, default=False)
-
-    def __repr__(self):
-        return f'{self.id}'
-
-# Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
