@@ -9,25 +9,36 @@
                     <div class="row">
                         <div class="col-lg-9">
 
-                            <h1 class='title'>About me</h1>
+                            <h1 class='title'>Редактировать рубрики</h1>
                             <hr>
                             {% include '_flash_error.html' %}
-                            <div>
-                                бла бла бла
-                                <p> здесь будет контент</p>
-                                <div class="form">
-                                    <div class="container">
+
+                            <div class="form">
+                                <div class="container">
                                     {% include 'forms/_add_rubric.html' %}
-                                        </div>
                                 </div>
                             </div>
-                        </div>
-                        {% include '_right_block_static.html' %}
-                    </div>
+
+
+
+                            <div class="form">
+                                <div class="container">
+                                    <p>
+                                    {% include 'forms/_edit_rubrics.html' %}
+                                    </p>
+                                </div>
+                            </div>
+
+
+
+
                 </div>
+                {% include '_right_block_static.html' %}
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 
 {% endblock %}

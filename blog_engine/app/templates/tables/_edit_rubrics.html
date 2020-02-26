@@ -1,0 +1,34 @@
+<table class="table table-striped">
+    <caption>Все рубрики</caption>
+    <thead>
+    <tr>
+        <th scope="col">
+            <div class="form-check">
+                <input type="checkbox" name="checks" value="" disabled>
+            </div>
+        </th>
+        <th scope="col">id</th>
+        <th scope="col">Название</th>
+        <th scope="col">Посты</th>
+        <th scope="col">Активна</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for rubric in rubrics %}
+    <tr>
+        <td>
+            <div class="form-check">
+                <input type="checkbox" name="checks" value="{{ rubric.id }}">
+            </div>
+        </td>
+
+        <td> {{ rubric.id }}</td>
+        <td>{{ rubric.name }}</td>
+        <td>поосты</td>
+        <td>{{ rubric.is_active }}</td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>

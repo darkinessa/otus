@@ -22,7 +22,7 @@ class User(UserMixin, Base):
     name = Column(String(48))
     email = Column(String(48), nullable=False)
     password = Column(String(128), nullable=False)
-    is_admin = Column(Boolean, default=False, nullable=False)
+    admin = Column(Boolean, default=False, nullable=False)
     posts = relationship('Post', back_populates='author')
 
     def set_password(self, password):
@@ -32,7 +32,7 @@ class User(UserMixin, Base):
         return check_password_hash(self.password, password)
 
     def is_admin(self):
-        return self.is_admin
+        return self.admin
 
     def __repr__(self):
         return f'<User {self.username}>'
@@ -86,6 +86,9 @@ class Rubric(Base):
     posts = relationship('Post', back_populates='rubric')
     is_active = Column(Boolean, nullable=False, default=True)
 
+    def __repr__(self):
+        return f'{self.name}'
+
 
 class Jumbotron(Base):
     __tablename__ = 'jumbotron'
@@ -94,6 +97,9 @@ class Jumbotron(Base):
     emphasis = Column(String, nullable=False)
     text = Column(Text, nullable=False)
     img_link = Column(String(128), nullable=False)
+
+    def __repr__(self):
+        return f'{self.id}'
 
 
 class Static(Base):
@@ -105,5 +111,8 @@ class Static(Base):
     meta_keywords = Column(String(160))
     page = Column(Text)
     is_active = Column(Boolean, nullable=False, default=False)
+
+    def __repr__(self):
+        return f'{self.id}'
 
 # Base.metadata.create_all(bind=engine)

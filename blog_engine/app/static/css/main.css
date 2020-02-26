@@ -141,3 +141,8 @@ color: #666666;
 .next-post{
     font-size: 0.8em;
 }
+
+caption {
+    caption-side: top;
+    text-align: center;
+    }

@@ -116,7 +116,7 @@ def login():
 
         if validate_form(current_username, password):
             flash(validate_form(current_username, password))
-            return redirect(url_for('login'))
+            return redirect(url_for('login', username=current_username))
         else:
             login_user(user)
             return redirect(url_for('post'))

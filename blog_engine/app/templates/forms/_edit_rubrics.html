@@ -1,0 +1,11 @@
+<div class="form">
+    <div class="container">
+        <form name="manage_rubric" action="/manage_rubrics" method="post">
+            {% include 'tables/_edit_rubrics.html' %}
+            <input type="submit" name="edit" value="Изменить"
+                   onclick="return confirm('Изменить?');">
+            <input type="submit" name="del" value="Удалить"
+                   onclick="return confirm('Удалить?');">
+        </form>
+    </div>
+</div>

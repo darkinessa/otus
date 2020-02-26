@@ -8,7 +8,7 @@ from app import app
 def admin_required(func):
     @wraps(func)
     def wrapped(*args, **kwargs):
-        if current_user.is_anonymous or not current_user.is_admin:
+        if current_user.is_anonymous or not current_user.admin:
             return redirect(url_for('index'))
         return func(*args, **kwargs)
 
