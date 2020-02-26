@@ -120,4 +120,4 @@ class Jumbotron(Base):
 #     def __repr__(self):
 #         return f'{self.id}'
 
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)

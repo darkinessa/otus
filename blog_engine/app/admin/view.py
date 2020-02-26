@@ -58,6 +58,18 @@ def add_rubric():
 @app.route('/edit_rubric', methods=['POST'])
 @admin_required
 def edit_rubric():
+    '''здесь будет функционал'''
     session = Session()
     rubrics = session.query(Rubric).all()
     return redirect(url_for('manage_rubrics', rubrics=rubrics))
+
+
+@app.route('/manage_jambo', methods=['GET', 'POST'])
+@admin_required
+def manage_jambo():
+    session = Session()
+    title = "Редактировать главный экран"
+    # jambo_title = request.form.get('jambo-title') jambo_title=jambo_title
+
+    return render_template('admin/jambo.html', title=title, )
+

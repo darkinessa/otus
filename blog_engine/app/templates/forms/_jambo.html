@@ -1,0 +1,64 @@
+<form name="registration" action="/registration" method="post">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col">
+                <div class="form-group">
+
+                    <label for="jambo-title">Заголовок</label>
+                    <input type="text" class="form-control" id="jambo-title" name="jambo-title"
+                           placeholder="Заголовок" value="{{ jambo_title }}">
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="emphasis">Имя</label>
+                    <textarea class="form-control" id="emphasis"
+                              rows="3">{{ emphasis }} </textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="text"> Текст</label>
+                    <textarea class="form-control" id="text"
+                              rows="5">{{ text }} </textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+
+                    <label for="jambo-img">Ссылка на главную картинку</label>
+                    <input type="text" class="form-control" id="jambo-img"
+                           name="jambo-img"
+                           placeholder="ссылка на картинку" value="{{ img_link }}">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div class="col">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-secondary" id="submit">
+                        Сохранить
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</form>
