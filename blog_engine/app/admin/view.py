@@ -1,3 +1,5 @@
+import os
+
 from flask import request, url_for, flash, render_template
 from flask_login import current_user
 from werkzeug.utils import redirect
@@ -5,7 +7,8 @@ from werkzeug.utils import redirect
 from app import app
 from app.database import Session
 from app.decorators import admin_required
-from app.models import User, Rubric, Post
+from app.models import User, Rubric, Post, Jumbotron
+import pathlib
 
 
 @app.route('/manage_rubrics', methods=['GET', 'POST'])
@@ -68,8 +71,51 @@ def edit_rubric():
 @admin_required
 def manage_jambo():
     session = Session()
-    title = "Редактировать главный экран"
-    # jambo_title = request.form.get('jambo-title') jambo_title=jambo_title
+    page_title = "Редактировать главный экран"
 
-    return render_template('admin/jambo.html', title=title, )
+    if request.method == 'POST':
+        form = request.form
+        title = form.get('title')
+        emphasis = form.get('emphasis')
+        text = form.get('text')
+        img_link = form.get('img_link')
+        error = None
 
+        def check_empty_error(check_function, field_name, error_text):
+            if check_function(field_name):
+                return render_template('admin/jambo.html', field_with_error=field_name, error=error_text,
+                                       title=title, text=text, emphasis=emphasis, img_link=img_link,
+                                        page_title=page_title)
+
+        def is_empty(field):
+            return form.get(field).strip() == ''
+
+        def check_img(field):
+            if field.startswith('http'):
+                return True
+            file_path = 'app/static/img/' + field
+            path = pathlib.Path(file_path)
+            return path.is_file() is False
+
+
+        fields = [
+            (is_empty, 'title', 'Заполните поле: Заголовок'),
+            (is_empty, 'emphasis', 'Заполните поле: Основная мысль'),
+            (is_empty, 'text', 'Заполните поле:  Текст'),
+            (is_empty, 'img_link', 'Заполните поле:  Ссылка на картинку'),
+            (check_img, img_link, 'Неверная ссылка, такого файла не существует')
+        ]
+
+        for field in fields:
+            check_f, field_name, error_text = field
+            error = check_empty_error(check_f, field_name, error_text)
+            if error:
+                return error
+
+        jambo = Jumbotron(title=title, emphasis=emphasis, text=text, img_link=img_link)
+        session.add(jambo)
+        session.commit()
+        flash('Новое приветсвие добавленоо')
+        return redirect(url_for('manage_jambo'))
+
+    return render_template('admin/jambo.html', page_title=page_title)
