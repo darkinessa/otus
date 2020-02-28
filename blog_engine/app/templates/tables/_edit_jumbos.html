@@ -1,0 +1,33 @@
+<table class="table table-striped">
+    <caption>10 последних экранов</caption>
+    <thead>
+    <tr>
+        <th scope="col">
+            <div class="form-check">
+                <input type="checkbox" name="checks" value="" disabled>
+            </div>
+        </th>
+        <th scope="col">id</th>
+        <th scope="col">Заговок</th>
+        <th scope="col">Основная мысль</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for jumbo in jumbos %}
+    <tr>
+        <td>
+            <div class="form-check">
+                <input type="checkbox" name="checks" value="{{ jumbo.id }}">
+            </div>
+        </td>
+
+        <td> {{ jumbo.id }}</td>
+        <td>{{ jumbo.title }}</td>
+        <td>{{ jumbo.emphasis }}</td>
+        <td>{{ jumbo.active }}</td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>

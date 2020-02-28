@@ -1,0 +1,11 @@
+<form name="manage_jumbo" action="/edit_jumbo" method="post">
+    {% include 'tables/_edit_jumbos.html' %}
+    <input type="submit" name="copy" value="Скопировать"
+           onclick="return confirm('Скопировать?');">
+    <input type="submit" name="act" value="Активировать"
+           onclick="return confirm('Активировать?');">
+    <input type="submit" name="deact" value="Деактивировать"
+           onclick="return confirm('Деактивировать?');">
+    <input type="submit" name="del" value="Удалить"
+           onclick="return confirm('Удалить?');">
+</form>

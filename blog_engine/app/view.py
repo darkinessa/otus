@@ -5,13 +5,23 @@ from werkzeug.utils import redirect
 from app import app
 from app.database import Session
 from app.decorators import admin_required
-from app.models import User
+from app.models import User, Jumbotron
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('public/index.html')
+    session = Session()
+    jumbo = session.query(Jumbotron).filter_by(active=True).order_by(Jumbotron.id.desc()).first()
+    print(jumbo)
+
+    jumbo_title = jumbo.title
+    emphasis = jumbo.emphasis
+    text = jumbo.text
+    img_link = jumbo.img_link
+
+    return render_template('public/index.html', jumbo_title=jumbo_title, text=text,
+                           emphasis=emphasis, img_link=img_link)
 
 
 @app.route('/static-template')

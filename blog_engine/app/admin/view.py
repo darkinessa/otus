@@ -5,6 +5,7 @@ from flask_login import current_user
 from werkzeug.utils import redirect
 
 from app import app
+from app.admin.validators import check_img
 from app.database import Session
 from app.decorators import admin_required
 from app.models import User, Rubric, Post, Jumbotron
@@ -24,8 +25,9 @@ def manage_rubrics():
 
         if request.method == 'POST' and 'del' in request.form:
 
-            if session.query(Post).filter_by(rubric_id=int(checked_rubric)).all():
+            if rubric.posts_quantity > 0:
                 flash('Нельзя удалить рубрику в которой есть посты')
+                return redirect(url_for('manage_rubrics'))
 
             session.delete(rubric)
             session.commit()
@@ -67,39 +69,39 @@ def edit_rubric():
     return redirect(url_for('manage_rubrics', rubrics=rubrics))
 
 
-@app.route('/manage_jambo', methods=['GET', 'POST'])
+@app.route('/add_jumbo', methods=['GET', 'POST'])
 @admin_required
-def manage_jambo():
+def add_jumbo(id=None):
     session = Session()
+    form = request.form
+    jumbos = session.query(Jumbotron).order_by(Jumbotron.active.desc(), Jumbotron.id.desc(), ).limit(10).all()
     page_title = "Редактировать главный экран"
+    id = request.form.get('id')
+    print(id)
+    print(request.form)
 
-    if request.method == 'POST':
-        form = request.form
-        title = form.get('title')
+    def is_empty(field):
+        return form.get(field).strip() == ''
+
+    if request.method == 'POST' and 'save' in form:
+        print(id)
+        jumbo_title = form.get('jumbo_title')
         emphasis = form.get('emphasis')
         text = form.get('text')
         img_link = form.get('img_link')
+        jumbo_id = form.get('id')
+        print(jumbo_id)
+
         error = None
 
         def check_empty_error(check_function, field_name, error_text):
             if check_function(field_name):
-                return render_template('admin/jambo.html', field_with_error=field_name, error=error_text,
-                                       title=title, text=text, emphasis=emphasis, img_link=img_link,
-                                        page_title=page_title)
-
-        def is_empty(field):
-            return form.get(field).strip() == ''
-
-        def check_img(field):
-            if field.startswith('http'):
-                return True
-            file_path = 'app/static/img/' + field
-            path = pathlib.Path(file_path)
-            return path.is_file() is False
-
+                return render_template('admin/jumbo.html', field_with_error=field_name, error=error_text,
+                                       jumbo_title=jumbo_title, text=text, emphasis=emphasis, img_link=img_link,
+                                       page_title=page_title)
 
         fields = [
-            (is_empty, 'title', 'Заполните поле: Заголовок'),
+            (is_empty, 'jumbo_title', 'Заполните поле: Заголовок'),
             (is_empty, 'emphasis', 'Заполните поле: Основная мысль'),
             (is_empty, 'text', 'Заполните поле:  Текст'),
             (is_empty, 'img_link', 'Заполните поле:  Ссылка на картинку'),
@@ -112,10 +114,95 @@ def manage_jambo():
             if error:
                 return error
 
-        jambo = Jumbotron(title=title, emphasis=emphasis, text=text, img_link=img_link)
-        session.add(jambo)
-        session.commit()
-        flash('Новое приветсвие добавленоо')
-        return redirect(url_for('manage_jambo'))
+        if not jumbo_id:
+            print(jumbo_id)
 
-    return render_template('admin/jambo.html', page_title=page_title)
+            jumbo = Jumbotron(title=jumbo_title, emphasis=emphasis, text=text, img_link=img_link)
+            session.add(jumbo)
+            flash('Новое приветсвие добавлено')
+        else:
+            print(jumbo_id)
+            jumbo = session.query(Jumbotron).get(jumbo_id)
+            jumbo.title = jumbo_title
+            jumbo.emphasis = emphasis
+            jumbo.text = text
+            jumbo.img_link = img_link
+
+
+            flash(f'Приветсвие {jumbo.id} скопировано')
+
+        session.commit()
+
+        return redirect(url_for('add_jumbo'))
+
+    if 'preview' in form:
+        jumbo_title = form.get('jumbo_title')
+        emphasis = form.get('emphasis')
+        text = form.get('text')
+        img_link = form.get('img_link')
+        page_title = 'Предварительный просмотр'
+        return render_template('public/index.html', page_title=page_title, jumbo_title=jumbo_title, text=text,
+                               emphasis=emphasis, img_link=img_link)
+    return render_template('admin/jumbo.html', page_title=page_title, jumbos=jumbos)
+
+
+@app.route('/edit_jumbo', methods=['GET', 'POST'])
+@admin_required
+def edit_jumbo():
+    session = Session()
+    form = request.form
+    jumbos = session.query(Jumbotron).order_by(Jumbotron.active.desc(), Jumbotron.id.desc(), ).limit(10).all()
+    page_title = "Редактировать главный экран"
+    checked_jumbos = request.form.getlist('checks')
+
+    if 'del' in form:
+
+        for checked_jumbo in checked_jumbos:
+            jumbo = session.query(Jumbotron).get(checked_jumbo)
+            if jumbo.active:
+                flash('Нельзя удалить активный экран, сначала деактивируйте его')
+                return redirect(url_for('add_jumbo'))
+            print(jumbo)
+
+            session.delete(jumbo)
+
+            flash(f'Приветсвие {jumbo} удалено')
+            session.commit()
+
+        return redirect(url_for('edit_jumbo'))
+
+    if 'act' in form:
+
+        for checked_jumbo in checked_jumbos:
+            jumbo = session.query(Jumbotron).get(checked_jumbo)
+            print(jumbo, jumbo.active)
+            jumbo.active = True
+            session.commit()
+            flash(f'Приветсвие {jumbo} активировано')
+            print(jumbo, jumbo.active)
+        return redirect(url_for('edit_jumbo'))
+
+    if 'deact' in form:
+
+        for checked_jumbo in checked_jumbos:
+            jumbo = session.query(Jumbotron).get(checked_jumbo)
+            print(jumbo, jumbo.active)
+            jumbo.active = False
+            session.commit()
+            flash(f'Приветсвие {jumbo} деактивировано')
+            print(jumbo, jumbo.active)
+        return redirect(url_for('edit_jumbo'))
+
+    if 'copy' in form and len(checked_jumbos) == 1:
+        id = checked_jumbos
+        jumbo = session.query(Jumbotron).get(id)
+        jumbo_title = jumbo.title
+        emphasis = jumbo.emphasis
+        text = jumbo.text
+        img_link = jumbo.img_link
+
+        return render_template('admin/jumbo.html', page_title=page_title, jumbos=jumbos, jumbo_title=jumbo_title,
+                               emphasis=emphasis, text=text, img_link=img_link, id=id)
+
+
+    return render_template('admin/jumbo.html', page_title=page_title, jumbos=jumbos)

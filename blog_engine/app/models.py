@@ -101,6 +101,7 @@ class Jumbotron(Base):
     text = Column(Text, nullable=False)
     img_link = Column(String(128), nullable=False)
     active = Column(Boolean, default=False, nullable=False)
+    #доваить ссылку на читать далее
 
     def __repr__(self):
         return f'{self.id}'

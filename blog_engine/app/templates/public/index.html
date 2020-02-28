@@ -5,20 +5,14 @@
     <div class="container fluid ">
         <div class="row">
             <div class="jumbotron">
-                <div class="container fluid">
+                <div class="container">
                     <div class="row">
                         <div class="col text-left">
-                            <img src="static/img/syb.jpg"></div>
-                        <div class="col-8"><h1 class="display-4">Всем привет!</h1>
-                            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for
-                                calling
-                                extra
-                                attention to
-                                featured content or information.</p>
+                            <img src="static/img/{{ img_link }}"></div>
+                        <div class="col-8"><h1 class="display-4">{{ jumbo_title }}</h1>
+                            <p class="lead">{{ emphasis | safe }}</p>
                             <hr class="my-4">
-                            <p>It uses utility classes for typography and spacing to space content out within the
-                                larger
-                                container.</p>
+                            <p>{{ text | safe }}</p>
                             <a class="btn btn-danger btn-sm" href="#" role="button" style="color:#ffffff">Читать
                                 полностью</a>
                         </div>

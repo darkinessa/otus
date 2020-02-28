@@ -1,16 +1,15 @@
-<form name="manage_jambo" action="/manage_jambo" method="post">
+<form name="add_jumbo" action="/add_jumbo" method="post">
     <div class="container">
 
         <div class="row">
 
             <div class="col">
                 <div class="form-group">
-                    <div class="{{ has_error('title') }}">
-                        <label for="title">Заголовок</label>
-                        <input type="text" class="form-control" id="title" name="title"
-                               placeholder="Заголовок" value="{{ title }}">
+                    <div class="{{ has_error('jumbo_title') }}">
+                        <label for="jumbo_title">Заголовок</label>
+                        <input type="text" class="form-control" id="jumbo_title" name="jumbo_title"
+                               placeholder="Заголовок" value="{{ jumbo_title }}" target="_blank">
                     </div>
-
                 </div>
             </div>
         </div>
@@ -47,7 +46,19 @@
                     <div class="{{ has_error('img_link') }}">
                         <label for="img_link">Cсылка</label>
                         <input type="text" class="form-control" id="img_link" name="img_link"
-                               placeholder="Заголовок" value="{{ img_link }}">
+                               placeholder="Ссылка на картинку" value="{{ img_link }}">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+                <div class="row">
+
+            <div class="col">
+                <div class="form-group">
+                        <label for="id">ID</label>
+                        <input type="text" class="form-control" id="id" name="id"
+                               placeholder="id" value="{{ id }}" disabled>
                     </div>
 
                 </div>
@@ -59,9 +70,14 @@
 
             <div class="col">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-secondary" id="submit">
-                        Сохранить
-                    </button>
+                    <input type="submit" name="save" value="Сохранить"
+                           onclick="return confirm('Сохранить?');">
+
+                    <input type="submit" name="preview" value="Предпросмотр"
+                           formtarget=”_blank”>
+
+
+
                 </div>
             </div>
 

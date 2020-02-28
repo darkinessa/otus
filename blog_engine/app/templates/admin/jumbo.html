@@ -14,18 +14,28 @@
 
                             <h1 class='title'>{{ page_title }}</h1>
                             <hr>
-                             {% include '_flash_error.html' %}
+                            {% include '_flash_error.html' %}
                             <div class="form">
-                                {% include 'forms/_jambo.html' %}
+                                {% include 'forms/_add_jumbo.html' %}
+
+                                {% include 'forms/_edit_jumbos.html' %}
                             </div>
 
+
+
+
+
+                            {% include '_right_block_static.html' %}
+
                         </div>
-                        {% include '_right_block_static.html' %}
+
                     </div>
+
                 </div>
+
+
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}
