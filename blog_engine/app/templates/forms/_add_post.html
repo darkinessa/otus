@@ -1,0 +1,145 @@
+<form name="add_post" action="/add_post" method="post" xmlns="http://www.w3.org/1999/html">
+    <div class="container">
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <div class="{{ has_error('post_title') }}">
+                        <label for="post_title">Заголовок</label>
+                        <input type="text" class="form-control" id="post_title" name="post_title"
+                               placeholder="Заголовок" value="{{ post_title }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <div class="{{ has_error('post_description') }}">
+                        <label for="post_description">Основная мысль</label>
+                        <textarea class="form-control" id="post_description" name="post_description"
+                                  rows="3">{{ post_description }} </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <div class="{{ has_error('post_body') }}">
+                        <label for="post_body"> Текст</label>
+                        <textarea class="form-control" id="post_body" name="text"
+                                  rows="15">{{ post_body }} </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <div class="{{ has_error('prew_img_link') }}">
+                        <label for="prew_img_link">Cсылка</label>
+                        <input type="text" class="form-control" id="prew_img_link" name="prew_img_link"
+                               placeholder="Ссылка на картинку" value="{{ prew_img_linkk }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+
+                    <label for="post_slug">Semantic URL</label>
+                    <input type="text" class="form-control" id="post_slug" name="post_slug"
+                           placeholder="slug" value="{{ post_slug }}">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+
+                    <label for="tags">Теги</label>
+                    <input type="text" class="form-control" id="tags" name="tags"
+                           placeholder="Теги" value="{{ post_tags }}">
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row align-items-center">
+            <div class="col-auto my-1">
+                <label class="mr-sm-2 sr-only" for="select_rubric">Preference</label>
+                <select class="custom-select mr-sm-2" id="select_rubric" name="select_rubric">
+                    <option selected>Выберите рубрику</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+
+
+            <div class="col-auto my-1">
+                <a href="{{ url_for('manage_rubrics') }}" class="btn btn-secondary" style="color: #ffffff;"
+                   target="_blank"> Дообавить новую рубрику</a>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+
+                    <label for="meta_description">META описание страницы</label>
+                    <input type="text" class="form-control" id="meta_description" name="tags"
+                           placeholder="Мета описание" value="{{ post_meta_description }}">
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+
+                    <label for="meta_keywords">МЕТА ключевые слова</label>
+                    <input type="text" class="form-control" id="meta_keywords" name="tags"
+                           placeholder="Ключевые слова" value="{{ post_meta_keywords }}">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col">
+                <div class="form-group">
+                    <input type="submit" name="pub" value="Сохранить"
+                           onclick="return confirm('Опубликовать?');">
+                    <input type="submit" name="save" value="Сохранить черноовик"
+                           onclick="return confirm('Сохранить?');">
+
+                    <input type="submit" name="preview" value="Предпросмотр"
+                           formtarget=”_blank”>
+
+                    <input type="submit" name="preview" value="Предпросмотр"
+                           formtarget=”_blank”>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+</form>
+
+
+
