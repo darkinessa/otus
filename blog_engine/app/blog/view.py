@@ -5,7 +5,7 @@ from app import app
 from app.database import Session
 from app.decorators import admin_required
 from app.models import User, Rubric, Tag, Post
-from app.validators import is_empty, check_img, validate_form
+from app.validators import is_empty, check_img, validate_form, check_slug
 
 
 @app.route('/add_post', methods=['GET', 'POST'])
@@ -35,9 +35,11 @@ def add_post():
         (is_empty, title, 'Заполните поле: Заголовок'),
         (is_empty, description, 'Заполните поле: Краткое описание'),
         (is_empty, body, 'Заполните поле:  Текст'),
+        (is_empty, url_path, 'Заполните поле:  Slug'),
+        (check_slug, url_path, 'Неверный формат:  Slug может содержать только латинские символы и знаки: - и _'),
         (is_empty, rubric_id, 'Заполните поле:  Рубрика'),
         (is_empty, img_link, 'Заполните поле:  Ссылка на картинку'),
-        (check_img, img_link, 'Неверная ссылка, такого файла не существует')
+        (check_img, img_link, 'Неверная ссылка, такого файла не существует'),
     ]
 
     def check_form_error(check_function, field_name, error_text):
