@@ -1,15 +1,11 @@
-import os
-
 from flask import request, url_for, flash, render_template
-from flask_login import current_user
 from werkzeug.utils import redirect
 
 from app import app
-from app.admin.validators import check_img
+from app.validators import check_img, is_empty
 from app.database import Session
 from app.decorators import admin_required
-from app.models import User, Rubric, Post, Jumbotron
-import pathlib
+from app.models import Rubric, Jumbotron
 
 
 @app.route('/manage_rubrics', methods=['GET', 'POST'])
@@ -77,21 +73,14 @@ def add_jumbo(id=None):
     jumbos = session.query(Jumbotron).order_by(Jumbotron.active.desc(), Jumbotron.id.desc(), ).limit(10).all()
     page_title = "Редактировать главный экран"
     id = request.form.get('id')
-    print(id)
-    print(request.form)
-
-    def is_empty(field):
-        return form.get(field).strip() == ''
 
     if request.method == 'POST' and 'save' in form:
-        print(id)
+
         jumbo_title = form.get('jumbo_title')
         emphasis = form.get('emphasis')
         text = form.get('text')
         img_link = form.get('img_link')
         jumbo_id = form.get('id')
-        print(jumbo_id)
-
         error = None
 
         def check_empty_error(check_function, field_name, error_text):
@@ -101,10 +90,10 @@ def add_jumbo(id=None):
                                        page_title=page_title)
 
         fields = [
-            (is_empty, 'jumbo_title', 'Заполните поле: Заголовок'),
-            (is_empty, 'emphasis', 'Заполните поле: Основная мысль'),
-            (is_empty, 'text', 'Заполните поле:  Текст'),
-            (is_empty, 'img_link', 'Заполните поле:  Ссылка на картинку'),
+            (is_empty, jumbo_title, 'Заполните поле: Заголовок'),
+            (is_empty, emphasis, 'Заполните поле: Основная мысль'),
+            (is_empty, text, 'Заполните поле:  Текст'),
+            (is_empty, img_link, 'Заполните поле:  Ссылка на картинку'),
             (check_img, img_link, 'Неверная ссылка, такого файла не существует')
         ]
 
@@ -115,19 +104,15 @@ def add_jumbo(id=None):
                 return error
 
         if not jumbo_id:
-            print(jumbo_id)
-
             jumbo = Jumbotron(title=jumbo_title, emphasis=emphasis, text=text, img_link=img_link)
             session.add(jumbo)
             flash('Новое приветсвие добавлено')
         else:
-            print(jumbo_id)
             jumbo = session.query(Jumbotron).get(jumbo_id)
             jumbo.title = jumbo_title
             jumbo.emphasis = emphasis
             jumbo.text = text
             jumbo.img_link = img_link
-
 
             flash(f'Приветсвие {jumbo.id} скопировано')
 
@@ -156,23 +141,19 @@ def edit_jumbo():
     checked_jumbos = request.form.getlist('checks')
 
     if 'del' in form:
-
         for checked_jumbo in checked_jumbos:
             jumbo = session.query(Jumbotron).get(checked_jumbo)
             if jumbo.active:
                 flash('Нельзя удалить активный экран, сначала деактивируйте его')
                 return redirect(url_for('add_jumbo'))
-            print(jumbo)
 
             session.delete(jumbo)
-
             flash(f'Приветсвие {jumbo} удалено')
             session.commit()
 
         return redirect(url_for('edit_jumbo'))
 
     if 'act' in form:
-
         for checked_jumbo in checked_jumbos:
             jumbo = session.query(Jumbotron).get(checked_jumbo)
             print(jumbo, jumbo.active)
@@ -183,7 +164,6 @@ def edit_jumbo():
         return redirect(url_for('edit_jumbo'))
 
     if 'deact' in form:
-
         for checked_jumbo in checked_jumbos:
             jumbo = session.query(Jumbotron).get(checked_jumbo)
             print(jumbo, jumbo.active)
@@ -203,6 +183,5 @@ def edit_jumbo():
 
         return render_template('admin/jumbo.html', page_title=page_title, jumbos=jumbos, jumbo_title=jumbo_title,
                                emphasis=emphasis, text=text, img_link=img_link, id=id)
-
 
     return render_template('admin/jumbo.html', page_title=page_title, jumbos=jumbos)

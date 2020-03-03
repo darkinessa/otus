@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <div class="{{ has_error('post_body') }}">
                         <label for="post_body"> Текст</label>
-                        <textarea class="form-control" id="post_body" name="text"
+                        <textarea class="form-control" id="post_body" name="post_body"
                                   rows="15">{{ post_body }} </textarea>
                     </div>
                 </div>
@@ -77,13 +77,16 @@
 
         <div class="form-row align-items-center">
             <div class="col-auto my-1">
-                <label class="mr-sm-2 sr-only" for="select_rubric">Preference</label>
-                <select class="custom-select mr-sm-2" id="select_rubric" name="select_rubric">
-                    <option selected>Выберите рубрику</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
+                <div class="{{ has_error('selected_rubric') }}">
+                    <label class="mr-sm-2 sr-only" for="selected_rubric"></label>
+                    <select class="custom-select mr-sm-2" id="selected_rubric" name="selected_rubric" required>
+                        <optgroup label="Выберите рубрику">
+
+                        {% for rubric in rubrics %}
+                        <option {% if rubric.id == rubric_id %} selected {% endif %} value="{{ rubric.id }}"> {{ rubric.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
 
 
