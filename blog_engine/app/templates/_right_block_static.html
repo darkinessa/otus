@@ -16,30 +16,11 @@
             <h5 class="card-header">Рубрики</h5>
             <div class="card-body">
                 <ul class="list-unstyled categories">
+                    {% for rubric in rubrics %}
                     <li>
-                        <a href="#">FASHION ROYALTY</a>
+                        {{ rubric.name }}
                     </li>
-                    <li>
-                        <a href="#">SYBARITE DOLLS</a>
-                    </li>
-                    <li>
-                        <a href="#">MOMOKO DOLLS</a>
-                    </li>
-                    <li>
-                        <a href="#">ОДЕЖДА ДЛЯ КУКОЛ</a>
-                    </li>
-                    <li>
-                        <a href="#">МИНИАТЮРНАЯ ФЛОРИСТИКА</a>
-                    </li>
-                    <li>
-                        <a href="#">Психология</a>
-                    </li>
-                    <li>
-                        <a href="#">Фотосериал</a>
-                    </li>
-                    <li>
-                        <a href="#">Tutorials</a>
-                    </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>

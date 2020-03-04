@@ -4,8 +4,8 @@ from flask_login import current_user
 from app import app
 from app.database import Session
 from app.decorators import admin_required
-from app.models import User, Rubric, Tag, Post
-from app.validators import is_empty, check_img, validate_form, check_slug
+from app.models import User, Rubric, Tag, Post, bind_posts_tags
+from app.validators import is_empty, check_img, validate_form, check_slug, is_exist_slug
 
 
 @app.route('/add_post', methods=['GET', 'POST'])
@@ -22,7 +22,7 @@ def add_post():
     meta_keywords = form.get('meta_keywords')
     description = form.get('post_description')
     body = form.get('post_body')
-    img_link = form.get('prew_img_link')
+    img_link = form.get('img_link')
     url_path = form.get('post_slug')
     post_tags = form.get('tags')
     tags = []
@@ -37,6 +37,7 @@ def add_post():
         (is_empty, body, 'Заполните поле:  Текст'),
         (is_empty, url_path, 'Заполните поле:  Slug'),
         (check_slug, url_path, 'Неверный формат:  Slug может содержать только латинские символы и знаки: - и _'),
+        (is_exist_slug, url_path, 'Неверный формат: такой путь уже существует'),
         (is_empty, rubric_id, 'Заполните поле:  Рубрика'),
         (is_empty, img_link, 'Заполните поле:  Ссылка на картинку'),
         (check_img, img_link, 'Неверная ссылка, такого файла не существует'),
@@ -92,10 +93,21 @@ def add_post():
     return render_template('admin/manage_post.html', rubrics=rubrics, page_title=page_title)
 
 
-@app.route('/edit_post', methods=['GET', 'POST'])
-@admin_required
-def edit_post(id):
-    '''здесь будет функционал'''
+# @app.route('/edit_post', methods=['GET', 'POST'])
+# @admin_required
+# def edit_post(id):
+#     '''здесь будет функционал'''
+#     session = Session()
+#     post = session.query(Post).get(id)
+#     return render_template('manage_post', post=post)
+
+@app.route('/<post_slug>', methods=['GET', 'POST'])
+def post(post_slug):
     session = Session()
-    post = session.query(Post).get(id)
-    return render_template('manage_post', post=post)
+    rubrics = session.query(Rubric).all()
+    post = session.query(Post).filter_by(url_path=post_slug).first()
+    tags = session.query(Tag).join(bind_posts_tags).filter_by(post_id=post.id)
+    post_rubric = session.query(Rubric).get(post.rubric_id)
+
+    return render_template('public/post.html', post_title=post.title, post_body=post.body,
+                           post_rubric=post_rubric, tags=tags, post=post, rubrics=rubrics)

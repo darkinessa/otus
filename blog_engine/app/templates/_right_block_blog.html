@@ -11,9 +11,19 @@
         </form>
     </div>
     <!-- Карточка-->
-    <div class="card my-4">
-        <h5 class="card-header poppy-color">Новое</h5>
-        <div class="card-body">
+    <!-- меню с рубриками -->
+    <div class="rubrics">
+        <div class="card my-4">
+            <h5 class="card-header">Рубрики</h5>
+            <div class="card-body">
+                <ul class="list-unstyled categories">
+                    {% for rubric in rubrics %}
+                    <li>
+                        {{ rubric.name }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
 

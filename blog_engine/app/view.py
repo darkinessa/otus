@@ -5,7 +5,7 @@ from werkzeug.utils import redirect
 from app import app
 from app.database import Session
 from app.decorators import admin_required
-from app.models import User, Jumbotron
+from app.models import User, Jumbotron, Rubric
 
 
 @app.route('/')
@@ -26,24 +26,29 @@ def index():
 
 @app.route('/static-template')
 def static_template():
-    return render_template('public/static-template.html')
+    session = Session()
+    rubrics = session.query(Rubric).all()
+    return render_template('public/static-template.html', rubrics=rubrics)
 
 
 @app.route('/contacts')
 @admin_required
 def contacts():
-    return render_template('public/contacts.html')
+    session = Session()
+    rubrics = session.query(Rubric).all()
+    return render_template('public/contacts.html', rubrics=rubrics)
 
 
-@app.route('/post')
-def post():
-    return render_template('public/post.html')
+# @app.route('/post/')
+# def post():
+#     return render_template('public/post.html')
 
 
 @app.route('/blog')
 def blog():
-    print(current_user)
-    return render_template('public/blog.html')
+    session = Session()
+    rubrics = session.query(Rubric).all()
+    return render_template('public/blog.html', rubrics=rubrics)
 
 
 @app.route('/registration', methods=['GET', 'POST'])

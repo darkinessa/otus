@@ -12,7 +12,7 @@
                             <!--Заголовок-->
                             <h1 class='title'>{{ post_title }}</h1>
                             <hr>
-                            <p>Posted on January 1, 2020 at 12:00 PM </p>
+                            <p>Posted on {{ moment(post.date).format('LLL') }} </p>
                             <hr>
                             <hr>
                             {% include '_flash_error.html' %}
@@ -24,7 +24,7 @@
                             <div class="tags">
                                 <p><i class="fas fa-tags tags"></i>
                                     {% for tag in tags %}
-                                    <a href="#"> {{ tag }}</a>
+                                    <a href="#"> {{ tag }}, </a>
                                     {% endfor %}
                                 </p>
                             </div>

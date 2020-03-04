@@ -37,18 +37,6 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <div class="{{ has_error('prew_img_link') }}">
-                        <label for="prew_img_link">Cсылка</label>
-                        <input type="text" class="form-control" id="prew_img_link" name="prew_img_link"
-                               placeholder="Ссылка на картинку" value="{{ prew_img_linkk }}">
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
         <div class="row">
             <div class="col">
@@ -58,6 +46,18 @@
                     <input type="text" class="form-control" id="post_slug" name="post_slug"
                            placeholder="slug" value="{{ post_slug }}">
 
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <div class="{{ has_error('img_link') }}">
+                        <label for="img_link">Cсылка</label>
+                        <input type="text" class="form-control" id="img_link" name="img_link"
+                               placeholder="Ссылка на картинку" value="{{ img_link }}">
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,10 +81,12 @@
                     <label class="mr-sm-2 sr-only" for="selected_rubric"></label>
                     <select class="custom-select mr-sm-2" id="selected_rubric" name="selected_rubric" required>
                         <optgroup label="Выберите рубрику">
-
-                        {% for rubric in rubrics %}
-                        <option {% if rubric.id == rubric_id %} selected {% endif %} value="{{ rubric.id }}"> {{ rubric.name }}</option>
-                        {% endfor %}
+                            {% for rubric in rubrics %}
+                            <option {% if rubric.id== rubric_id %} selected {% endif %} value="{{ rubric.id }}"> {{
+                                rubric.name }}
+                            </option>
+                            {% endfor %}
+                        </optgroup>
                     </select>
                 </div>
             </div>
